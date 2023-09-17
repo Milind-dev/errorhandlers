@@ -1,12 +1,23 @@
 
 const express = require('express');
-const { dashboard, homepage } = require('../controller/products');
+const { dashboard, homepage, recipeApis } = require('../controller/products');
+const { recipeRegister, recipeLogin } = require('../controller/register');
+const { isAuthenticate } = require('../middleware/auth');
 const router = express.Router();
 
-router.get('/dashboard',dashboard)
-router.get('/homepage',homepage)
+router.route('/dashboard').get(dashboard)
+router.route('/homepage').get(homepage)
+router.route('/recipeApis').get(recipeApis)
+router.route('/recipeRegister').post(recipeRegister)
+router.route('/recipeLogin').post(isAuthenticate,recipeLogin)
+
+
+
 
 module.exports = {
     dashboardRoute:router,
-    productsRoute:router
+    productsRoute:router,
+    recipeApisRoute:router,
+    recipeRegisterRoute:router,
+    recipeLoginRoute:router
 }
